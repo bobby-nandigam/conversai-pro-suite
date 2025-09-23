@@ -22,6 +22,88 @@ const flowNodes = [
 ]
 
 export default function BotBuilder() {
+  const [botName, setBotName] = useState("New AI Assistant")
+  const [botDescription, setBotDescription] = useState("A helpful AI assistant")
+  const [selectedIntent, setSelectedIntent] = useState<any>(null)
+  const [flows, setFlows] = useState([
+    {
+      id: 1,
+      name: "Welcome Flow",
+      trigger: "greeting",
+      nodes: [
+        { id: "start", type: "trigger", label: "User says hello", x: 50, y: 100 },
+        { id: "response", type: "response", label: "Welcome! How can I help?", x: 300, y: 100 },
+        { id: "menu", type: "menu", label: "Show main menu", x: 550, y: 100 }
+      ]
+    },
+    {
+      id: 2, 
+      name: "Support Flow",
+      trigger: "help",
+      nodes: [
+        { id: "start", type: "trigger", label: "User needs help", x: 50, y: 200 },
+        { id: "classify", type: "condition", label: "Classify issue type", x: 300, y: 200 },
+        { id: "response", type: "response", label: "Provide relevant help", x: 550, y: 200 }
+      ]
+    }
+  ])
+  const [activeFlow, setActiveFlow] = useState(flows[0])
+  const [isPreviewOpen, setIsPreviewOpen] = useState(false)
+  const { toast } = useToast()
+
+  const handleSaveBot = () => {
+    toast({
+      title: "Bot saved successfully!",
+      description: `${botName} has been saved with ${flows.length} conversation flows.`,
+    })
+  }
+
+  const handleTestBot = () => {
+    setIsPreviewOpen(true)
+    toast({
+      title: "Bot test started",
+      description: "Test your bot in the preview window.",
+    })
+  }
+
+  const handleAddFlow = () => {
+    const newFlow = {
+      id: flows.length + 1,
+      name: `New Flow ${flows.length + 1}`,
+      trigger: "custom",
+      nodes: [
+        { id: "start", type: "trigger", label: "New trigger", x: 50, y: 100 }
+      ]
+    }
+    setFlows([...flows, newFlow])
+    setActiveFlow(newFlow)
+    toast({
+      title: "New flow created",
+      description: "Start building your conversation flow.",
+    })
+  }
+
+  const handleDeleteFlow = (flowId: number) => {
+    const updatedFlows = flows.filter(flow => flow.id !== flowId)
+    setFlows(updatedFlows)
+    if (activeFlow.id === flowId && updatedFlows.length > 0) {
+      setActiveFlow(updatedFlows[0])
+    }
+    toast({
+      title: "Flow deleted",
+      description: "Conversation flow has been removed.",
+    })
+  }
+
+  const nodeTypes = [
+    { type: "trigger", icon: Zap, label: "Trigger", color: "bg-blue-500" },
+    { type: "response", icon: MessageSquare, label: "Response", color: "bg-green-500" },
+    { type: "condition", icon: Brain, label: "Condition", color: "bg-yellow-500" },
+    { type: "action", icon: Settings, label: "Action", color: "bg-purple-500" },
+    { type: "menu", icon: FileText, label: "Menu", color: "bg-red-500" },
+    { type: "handoff", icon: Link, label: "Handoff", color: "bg-gray-500" }
+  ]
+
   return (
     <div className="flex-1 flex flex-col">
       {/* Builder Header */}

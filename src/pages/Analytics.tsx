@@ -24,6 +24,54 @@ const topBots = [
 ]
 
 export default function Analytics() {
+  const location = useLocation()
+  const selectedBot = location.state?.selectedBot
+  const [timeRange, setTimeRange] = useState("7d")
+  const [selectedMetric, setSelectedMetric] = useState("conversations")
+  
+  // Mock analytics data
+  const [analyticsData, setAnalyticsData] = useState({
+    totalConversations: 12847,
+    activeUsers: 8432,
+    avgResponseTime: 1.2,
+    satisfactionScore: 94.2,
+    successRate: 89.5,
+    peakHours: "2PM - 4PM",
+    topIntents: [
+      { name: "Product Inquiry", count: 3247, percentage: 25.3 },
+      { name: "Order Status", count: 2891, percentage: 22.5 },
+      { name: "Technical Support", count: 2156, percentage: 16.8 },
+      { name: "Billing Questions", count: 1823, percentage: 14.2 },
+      { name: "General Info", count: 1456, percentage: 11.3 }
+    ],
+    performanceMetrics: [
+      { period: "This Week", conversations: 2847, accuracy: 94.2, satisfaction: 4.7 },
+      { period: "Last Week", conversations: 2654, accuracy: 92.8, satisfaction: 4.5 },
+      { period: "This Month", conversations: 12847, accuracy: 93.5, satisfaction: 4.6 },
+      { period: "Last Month", conversations: 11892, accuracy: 91.2, satisfaction: 4.4 }
+    ]
+  })
+
+  useEffect(() => {
+    // Simulate data refresh when time range changes
+    if (timeRange) {
+      setAnalyticsData(prev => ({
+        ...prev,
+        totalConversations: Math.floor(Math.random() * 15000) + 8000
+      }))
+    }
+  }, [timeRange])
+
+  const getMetricIcon = (metric: string) => {
+    switch (metric) {
+      case 'conversations': return MessageSquare
+      case 'users': return Users
+      case 'satisfaction': return ThumbsUp
+      case 'response-time': return Clock
+      default: return BarChart3
+    }
+  }
+
   return (
     <div className="flex-1 space-y-6 p-6">
       {/* Header */}
