@@ -1,0 +1,144 @@
+import { useState } from "react"
+import { 
+  Bot, 
+  BarChart3, 
+  MessageSquare, 
+  Settings, 
+  Users, 
+  BookOpen,
+  Zap,
+  Shield,
+  Home,
+  Brain,
+  Phone,
+  TestTube
+} from "lucide-react"
+import { NavLink, useLocation } from "react-router-dom"
+import {
+  Sidebar,
+  SidebarContent,
+  SidebarGroup,
+  SidebarGroupContent,
+  SidebarGroupLabel,
+  SidebarMenu,
+  SidebarMenuButton,
+  SidebarMenuItem,
+  SidebarTrigger,
+  useSidebar,
+} from "@/components/ui/sidebar"
+import { cn } from "@/lib/utils"
+
+const mainItems = [
+  { title: "Dashboard", url: "/", icon: Home },
+  { title: "Bot Management", url: "/bots", icon: Bot },
+  { title: "Analytics", url: "/analytics", icon: BarChart3 },
+  { title: "Conversations", url: "/conversations", icon: MessageSquare },
+  { title: "Knowledge Base", url: "/knowledge", icon: BookOpen },
+]
+
+const advancedItems = [
+  { title: "Integrations", url: "/integrations", icon: Zap },
+  { title: "Team Management", url: "/team", icon: Users },
+  { title: "Testing Suite", url: "/testing", icon: TestTube },
+  { title: "Voice Interface", url: "/voice", icon: Phone },
+]
+
+const systemItems = [
+  { title: "Security", url: "/security", icon: Shield },
+  { title: "Settings", url: "/settings", icon: Settings },
+]
+
+export function AppSidebar() {
+  const { state } = useSidebar()
+  const location = useLocation()
+  const currentPath = location.pathname
+  const isCollapsed = state === "collapsed"
+
+  const isActive = (path: string) => currentPath === path || (path !== "/" && currentPath.startsWith(path))
+  
+  const getNavCls = ({ isActive }: { isActive: boolean }) =>
+    cn(
+      "w-full justify-start transition-all duration-200",
+      isActive 
+        ? "bg-gradient-primary text-primary-foreground shadow-glow" 
+        : "text-sidebar-foreground hover:bg-sidebar-accent hover:text-sidebar-accent-foreground"
+    )
+
+  return (
+    <Sidebar className={cn("border-r border-sidebar-border", isCollapsed ? "w-16" : "w-64")}>
+      <SidebarContent className="bg-sidebar">
+        {/* Header */}
+        <div className="p-4 border-b border-sidebar-border">
+          <div className="flex items-center gap-3">
+            <div className="w-8 h-8 bg-gradient-primary rounded-lg flex items-center justify-center">
+              <Brain className="w-5 h-5 text-white" />
+            </div>
+            {!isCollapsed && (
+              <div>
+                <h1 className="font-bold text-lg text-sidebar-foreground">ConversaAI</h1>
+                <p className="text-xs text-sidebar-foreground/60">Pro Platform</p>
+              </div>
+            )}
+          </div>
+        </div>
+
+        {/* Main Navigation */}
+        <SidebarGroup>
+          <SidebarGroupLabel className="text-sidebar-foreground/80">Main</SidebarGroupLabel>
+          <SidebarGroupContent>
+            <SidebarMenu>
+              {mainItems.map((item) => (
+                <SidebarMenuItem key={item.title}>
+                  <SidebarMenuButton asChild>
+                    <NavLink to={item.url} className={getNavCls}>
+                      <item.icon className="w-4 h-4" />
+                      {!isCollapsed && <span>{item.title}</span>}
+                    </NavLink>
+                  </SidebarMenuButton>
+                </SidebarMenuItem>
+              ))}
+            </SidebarMenu>
+          </SidebarGroupContent>
+        </SidebarGroup>
+
+        {/* Advanced Features */}
+        <SidebarGroup>
+          <SidebarGroupLabel className="text-sidebar-foreground/80">Advanced</SidebarGroupLabel>
+          <SidebarGroupContent>
+            <SidebarMenu>
+              {advancedItems.map((item) => (
+                <SidebarMenuItem key={item.title}>
+                  <SidebarMenuButton asChild>
+                    <NavLink to={item.url} className={getNavCls}>
+                      <item.icon className="w-4 h-4" />
+                      {!isCollapsed && <span>{item.title}</span>}
+                    </NavLink>
+                  </SidebarMenuButton>
+                </SidebarMenuItem>
+              ))}
+            </SidebarMenu>
+          </SidebarGroupContent>
+        </SidebarGroup>
+
+        {/* System */}
+        <SidebarGroup>
+          <SidebarGroupLabel className="text-sidebar-foreground/80">System</SidebarGroupLabel>
+          <SidebarGroupContent>
+            <SidebarMenu>
+              {systemItems.map((item) => (
+                <SidebarMenuItem key={item.title}>
+                  <SidebarMenuButton asChild>
+                    <NavLink to={item.url} className={getNavCls}>
+                      <item.icon className="w-4 h-4" />
+                      {!isCollapsed && <span>{item.title}</span>}
+                    </NavLink>
+                  </SidebarMenuButton>
+                </SidebarMenuItem>
+              ))}
+            </SidebarMenu>
+          </SidebarGroupContent>
+        </SidebarGroup>
+      </SidebarContent>
+    </Sidebar>
+  )
+}
