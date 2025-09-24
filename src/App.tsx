@@ -12,6 +12,7 @@ import Dashboard from "./pages/Dashboard";
 import BotManagement from "./pages/BotManagement";
 import BotBuilder from "./pages/BotBuilder";
 import Analytics from "./pages/Analytics";
+import Conversations from "./pages/Conversations";
 import Placeholder from "./pages/Placeholder";
 import NotFound from "./pages/NotFound";
 
@@ -36,12 +37,7 @@ const App = () => (
                     <BotBuilder />
                   } />
                   <Route path="/analytics" element={<Analytics />} />
-                  <Route path="/conversations" element={
-                    <Placeholder 
-                      title="Conversation Management" 
-                      description="Monitor live conversations, manage handoffs, and review chat history across all channels." 
-                    />
-                  } />
+                  <Route path="/conversations" element={<Conversations />} />
                   <Route path="/knowledge" element={
                     <Placeholder 
                       title="Knowledge Management" 
