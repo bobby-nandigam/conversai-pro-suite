@@ -11,8 +11,11 @@ import { DashboardHeader } from "@/components/dashboard-header";
 import Dashboard from "./pages/Dashboard";
 import BotManagement from "./pages/BotManagement";
 import BotBuilder from "./pages/BotBuilder";
-import Analytics from "./pages/Analytics";
-import Conversations from "./pages/Conversations";
+import Knowledge from "./pages/Knowledge";
+import Integrations from "./pages/Integrations";
+import TeamManagement from "./pages/TeamManagement";
+import Testing from "./pages/Testing";
+import Settings from "./pages/Settings";
 import Placeholder from "./pages/Placeholder";
 import NotFound from "./pages/NotFound";
 
@@ -38,30 +41,10 @@ const App = () => (
                   } />
                   <Route path="/analytics" element={<Analytics />} />
                   <Route path="/conversations" element={<Conversations />} />
-                  <Route path="/knowledge" element={
-                    <Placeholder 
-                      title="Knowledge Management" 
-                      description="Upload documents, create FAQs, and manage your bot's knowledge base with advanced search capabilities." 
-                    />
-                  } />
-                  <Route path="/integrations" element={
-                    <Placeholder 
-                      title="Integration Hub" 
-                      description="Connect with CRMs, help desks, e-commerce platforms, and other business tools seamlessly." 
-                    />
-                  } />
-                  <Route path="/team" element={
-                    <Placeholder 
-                      title="Team Management" 
-                      description="Invite team members, manage roles and permissions, and organize your workspace efficiently." 
-                    />
-                  } />
-                  <Route path="/testing" element={
-                    <Placeholder 
-                      title="Testing & Optimization" 
-                      description="Run A/B tests, simulate conversations, and optimize your bot's performance with advanced testing tools." 
-                    />
-                  } />
+                  <Route path="/knowledge" element={<Knowledge />} />
+                  <Route path="/integrations" element={<Integrations />} />
+                  <Route path="/team" element={<TeamManagement />} />
+                  <Route path="/testing" element={<Testing />} />
                   <Route path="/voice" element={
                     <Placeholder 
                       title="Voice Interface" 
@@ -74,12 +57,7 @@ const App = () => (
                       description="Manage data encryption, access controls, audit logs, and ensure GDPR compliance for your platform." 
                     />
                   } />
-                  <Route path="/settings" element={
-                    <Placeholder 
-                      title="Platform Settings" 
-                      description="Configure global settings, manage billing, customize branding, and control platform-wide preferences." 
-                    />
-                  } />
+                  <Route path="/settings" element={<Settings />} />
                   <Route path="*" element={<NotFound />} />
                 </Routes>
               </main>
