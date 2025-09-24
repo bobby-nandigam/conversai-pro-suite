@@ -1,6 +1,8 @@
+import { useState } from "react"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
+import { useToast } from "@/hooks/use-toast"
 import { 
   Bot, 
   Save, 
@@ -10,7 +12,12 @@ import {
   Plus,
   MessageCircle,
   GitBranch,
-  Settings
+  Settings,
+  Zap,
+  MessageSquare,
+  Brain,
+  FileText,
+  Link
 } from "lucide-react"
 
 const flowNodes = [

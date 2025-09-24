@@ -1,3 +1,5 @@
+import { useState, useEffect } from "react"
+import { useLocation } from "react-router-dom"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import { 
@@ -6,7 +8,8 @@ import {
   MessageSquare, 
   Users, 
   Clock,
-  Download
+  Download,
+  ThumbsUp
 } from "lucide-react"
 
 const performanceMetrics = [
