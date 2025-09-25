@@ -9,6 +9,8 @@ import { DashboardHeader } from "@/components/dashboard-header";
 
 // Pages
 import Dashboard from "./pages/Dashboard";
+import Analytics from "./pages/Analytics";
+import Conversations from "./pages/Conversations";
 import BotManagement from "./pages/BotManagement";
 import BotBuilder from "./pages/BotBuilder";
 import Knowledge from "./pages/Knowledge";
