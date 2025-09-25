@@ -18,6 +18,8 @@ import Integrations from "./pages/Integrations";
 import TeamManagement from "./pages/TeamManagement";
 import Testing from "./pages/Testing";
 import Settings from "./pages/Settings";
+import Voice from "./pages/Voice";
+import Security from "./pages/Security";
 import Placeholder from "./pages/Placeholder";
 import NotFound from "./pages/NotFound";
 
@@ -47,18 +49,8 @@ const App = () => (
                   <Route path="/integrations" element={<Integrations />} />
                   <Route path="/team" element={<TeamManagement />} />
                   <Route path="/testing" element={<Testing />} />
-                  <Route path="/voice" element={
-                    <Placeholder 
-                      title="Voice Interface" 
-                      description="Enable voice interactions, speech-to-text, and voice response capabilities for your AI assistants." 
-                    />
-                  } />
-                  <Route path="/security" element={
-                    <Placeholder 
-                      title="Security & Compliance" 
-                      description="Manage data encryption, access controls, audit logs, and ensure GDPR compliance for your platform." 
-                    />
-                  } />
+                  <Route path="/voice" element={<Voice />} />
+                  <Route path="/security" element={<Security />} />
                   <Route path="/settings" element={<Settings />} />
                   <Route path="*" element={<NotFound />} />
                 </Routes>
