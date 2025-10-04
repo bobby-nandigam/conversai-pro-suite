@@ -75,7 +75,6 @@ export default {
       },
       backgroundImage: {
         "gradient-primary": "var(--gradient-primary)",
-        "gradient-holographic": "var(--gradient-holographic)",
         "gradient-success": "var(--gradient-success)",
         "gradient-warning": "var(--gradient-warning)",
         "gradient-card": "var(--gradient-card)",
@@ -84,9 +83,6 @@ export default {
         "glow": "var(--shadow-glow)",
         "card": "var(--shadow-card)",
         "ai": "var(--shadow-lg)",
-        "neon": "var(--shadow-neon)",
-        "holographic": "var(--shadow-holographic)",
-        "elevated": "var(--shadow-elevated)",
       },
       animation: {
         "accordion-down": "accordion-down 0.2s ease-out",
