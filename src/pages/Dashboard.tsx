@@ -1,9 +1,5 @@
-import { WelcomeOverview } from "@/components/dashboard/welcome-overview"
+import NewDashboard from "./NewDashboard"
 
 export default function Dashboard() {
-  return (
-    <div className="flex-1 space-y-6 p-6">
-      <WelcomeOverview />
-    </div>
-  )
+  return <NewDashboard />
 }

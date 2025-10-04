@@ -2,78 +2,86 @@
 @tailwind components;
 @tailwind utilities;
 
-/* ConversaAI Pro Design System - Professional Conversational AI Platform */
+/* Pixelmind Labs - Next-Gen Futuristic Design System */
 
 @layer base {
   :root {
-    /* Core Brand Colors - AI Theme */
-    --background: 240 10% 3.9%;
-    --foreground: 0 0% 98%;
+    /* Core Futuristic Colors */
+    --background: 222 84% 4%;
+    --foreground: 210 100% 98%;
 
-    --card: 240 10% 4.9%;
-    --card-foreground: 0 0% 95%;
+    --card: 222 84% 5%;
+    --card-foreground: 210 100% 98%;
 
-    --popover: 240 10% 4.9%;
-    --popover-foreground: 0 0% 95%;
+    --popover: 222 84% 5%;
+    --popover-foreground: 210 100% 98%;
 
-    /* AI Brand Purple-Blue Gradient Theme */
-    --primary: 250 84% 54%;
-    --primary-foreground: 0 0% 98%;
-    --primary-glow: 250 100% 65%;
-    --primary-dark: 250 84% 45%;
+    /* Futuristic Neon Theme */
+    --primary: 195 100% 50%;
+    --primary-foreground: 222 84% 4%;
+    --primary-glow: 195 100% 65%;
+    --primary-dark: 195 100% 35%;
 
-    /* AI Secondary Colors */
-    --secondary: 240 5% 9%;
-    --secondary-foreground: 0 0% 90%;
+    /* Holographic Accents */
+    --secondary: 280 80% 50%;
+    --secondary-foreground: 0 0% 100%;
 
-    --muted: 240 4% 8%;
-    --muted-foreground: 240 5% 65%;
+    --muted: 222 47% 11%;
+    --muted-foreground: 215 20% 65%;
 
-    --accent: 260 75% 55%;
-    --accent-foreground: 0 0% 98%;
+    --accent: 320 100% 50%;
+    --accent-foreground: 0 0% 100%;
 
     /* Status Colors */
-    --success: 142 76% 36%;
-    --success-foreground: 0 0% 98%;
+    --success: 142 76% 50%;
+    --success-foreground: 0 0% 100%;
 
-    --warning: 48 96% 53%;
-    --warning-foreground: 240 10% 3.9%;
+    --warning: 38 92% 50%;
+    --warning-foreground: 222 84% 4%;
 
     --destructive: 0 84% 60%;
-    --destructive-foreground: 0 0% 98%;
+    --destructive-foreground: 0 0% 100%;
 
     /* Interface Elements */
-    --border: 240 6% 10%;
-    --input: 240 6% 10%;
-    --ring: 250 84% 54%;
+    --border: 217 32% 17%;
+    --input: 217 32% 17%;
+    --ring: 195 100% 50%;
 
-    --radius: 0.75rem;
+    --radius: 1rem;
 
-    /* Professional Gradients */
-    --gradient-primary: linear-gradient(135deg, hsl(250 84% 54%), hsl(260 75% 55%));
-    --gradient-success: linear-gradient(135deg, hsl(142 76% 36%), hsl(158 64% 52%));
-    --gradient-warning: linear-gradient(135deg, hsl(48 96% 53%), hsl(43 74% 49%));
-    --gradient-card: linear-gradient(135deg, hsl(240 10% 4.9%), hsl(240 8% 6%));
+    /* Futuristic Gradients */
+    --gradient-primary: linear-gradient(135deg, hsl(195 100% 50%), hsl(280 80% 50%), hsl(320 100% 50%));
+    --gradient-holographic: linear-gradient(135deg, hsl(195 100% 50% / 0.2), hsl(280 80% 50% / 0.2), hsl(320 100% 50% / 0.2));
+    --gradient-success: linear-gradient(135deg, hsl(142 76% 50%), hsl(158 64% 52%));
+    --gradient-card: linear-gradient(135deg, hsl(222 84% 5%), hsl(217 32% 17% / 0.3));
+    --gradient-glow: radial-gradient(circle at 50% 50%, hsl(195 100% 50% / 0.15), transparent 70%);
 
-    /* Professional Shadows */
-    --shadow-lg: 0 20px 40px -12px hsl(250 84% 54% / 0.25);
-    --shadow-glow: 0 0 60px hsl(250 100% 65% / 0.15);
-    --shadow-card: 0 4px 24px -4px hsl(240 10% 3.9% / 0.4);
+    /* Advanced Shadows & Glows */
+    --shadow-neon: 0 0 20px hsl(195 100% 50% / 0.5), 0 0 40px hsl(195 100% 50% / 0.3), 0 0 80px hsl(195 100% 50% / 0.1);
+    --shadow-holographic: 0 8px 32px hsl(195 100% 50% / 0.2), 0 0 0 1px hsl(195 100% 50% / 0.1);
+    --shadow-elevated: 0 20px 60px -20px hsl(0 0% 0% / 0.6), 0 0 1px hsl(195 100% 50% / 0.3);
+    --shadow-glow: 0 0 60px hsl(195 100% 65% / 0.3);
+    --shadow-card: 0 4px 24px -4px hsl(222 84% 4% / 0.6);
 
     /* Animations */
     --animation-fast: 200ms cubic-bezier(0.4, 0, 0.2, 1);
-    --animation-medium: 300ms cubic-bezier(0.4, 0, 0.2, 1);
-    --animation-slow: 500ms cubic-bezier(0.4, 0, 0.2, 1);
+    --animation-medium: 400ms cubic-bezier(0.4, 0, 0.2, 1);
+    --animation-slow: 600ms cubic-bezier(0.4, 0, 0.2, 1);
+    --animation-bounce: cubic-bezier(0.68, -0.55, 0.265, 1.55);
 
     /* Sidebar */
-    --sidebar-background: 240 8% 4%;
-    --sidebar-foreground: 0 0% 90%;
-    --sidebar-primary: 250 84% 54%;
-    --sidebar-primary-foreground: 0 0% 98%;
-    --sidebar-accent: 240 6% 7%;
-    --sidebar-accent-foreground: 0 0% 95%;
-    --sidebar-border: 240 6% 8%;
-    --sidebar-ring: 250 84% 54%;
+    --sidebar-background: 222 84% 3%;
+    --sidebar-foreground: 210 100% 98%;
+    --sidebar-primary: 195 100% 50%;
+    --sidebar-primary-foreground: 222 84% 4%;
+    --sidebar-accent: 217 32% 17%;
+    --sidebar-accent-foreground: 210 100% 98%;
+    --sidebar-border: 217 32% 17%;
+    --sidebar-ring: 195 100% 50%;
+
+    /* Glass Effect */
+    --glass-bg: hsl(222 84% 5% / 0.6);
+    --glass-border: hsl(195 100% 50% / 0.2);
   }
 }
 
@@ -98,48 +106,160 @@
 }
 
 @layer components {
-  /* Professional Button Variants */
+  /* Futuristic Button Variants */
   .btn-ai {
-    @apply bg-gradient-to-r from-primary to-accent text-primary-foreground hover:shadow-glow;
+    @apply bg-gradient-to-r from-primary via-secondary to-accent text-primary-foreground hover:shadow-neon transition-all duration-300;
   }
 
-  .btn-success {
-    @apply bg-gradient-to-r from-success to-emerald-500 text-success-foreground;
+  .btn-holographic {
+    @apply bg-gradient-to-r from-primary/20 via-secondary/20 to-accent/20 backdrop-blur-md border border-primary/30 text-foreground hover:border-primary hover:shadow-neon;
   }
 
   .btn-glass {
-    @apply bg-white/5 backdrop-blur-sm border border-white/10 hover:bg-white/10;
+    @apply bg-white/5 backdrop-blur-xl border border-white/10 hover:bg-white/10 hover:border-primary/50 transition-all duration-300;
   }
 
-  /* Card Variants */
-  .card-ai {
-    @apply bg-gradient-to-br from-card to-muted border border-white/5 shadow-card backdrop-blur-sm;
+  .btn-neon {
+    @apply bg-transparent border-2 border-primary text-primary hover:bg-primary hover:text-primary-foreground hover:shadow-neon transition-all duration-300;
   }
 
-  .card-glow {
-    @apply bg-gradient-to-br from-card to-muted border border-primary/20 shadow-glow;
+  /* Futuristic Card Variants */
+  .card-holographic {
+    @apply relative bg-gradient-to-br from-card via-muted to-card border border-primary/20 shadow-holographic backdrop-blur-xl overflow-hidden;
+  }
+
+  .card-holographic::before {
+    content: '';
+    @apply absolute inset-0 bg-gradient-holographic opacity-0 transition-opacity duration-500;
+  }
+
+  .card-holographic:hover::before {
+    @apply opacity-100;
+  }
+
+  .card-neon {
+    @apply bg-card/90 backdrop-blur-xl border-2 border-primary/30 shadow-neon hover:border-primary hover:shadow-holographic transition-all duration-300;
+  }
+
+  .card-glass {
+    @apply bg-white/5 backdrop-blur-2xl border border-white/10 shadow-elevated;
+  }
+
+  /* 3D Depth Effects */
+  .depth-1 {
+    @apply shadow-[0_4px_20px_rgba(0,0,0,0.3)] hover:shadow-[0_8px_30px_rgba(0,0,0,0.4)] transition-shadow duration-300;
+  }
+
+  .depth-2 {
+    @apply shadow-[0_8px_32px_rgba(0,0,0,0.4)] hover:shadow-[0_16px_48px_rgba(0,0,0,0.5)] transition-shadow duration-300;
+  }
+
+  .depth-3 {
+    @apply shadow-[0_16px_48px_rgba(0,0,0,0.5)] hover:shadow-[0_24px_64px_rgba(0,0,0,0.6)] transition-shadow duration-300;
+  }
+
+  /* Holographic Borders */
+  .border-holographic {
+    @apply border border-transparent bg-clip-padding;
+    background-image: linear-gradient(var(--glass-bg), var(--glass-bg)), 
+                      linear-gradient(135deg, hsl(195 100% 50%), hsl(280 80% 50%), hsl(320 100% 50%));
+    background-origin: border-box;
+    background-clip: padding-box, border-box;
+  }
+
+  /* Glow Effects */
+  .glow-primary {
+    @apply shadow-[0_0_20px_hsl(195_100%_50%/0.5)];
+  }
+
+  .glow-secondary {
+    @apply shadow-[0_0_20px_hsl(280_80%_50%/0.5)];
+  }
+
+  .glow-accent {
+    @apply shadow-[0_0_20px_hsl(320_100%_50%/0.5)];
   }
 
   /* Status Indicators */
   .status-online {
-    @apply bg-success shadow-[0_0_10px_hsl(142_76%_36%/0.3)];
+    @apply bg-success shadow-[0_0_15px_hsl(142_76%_50%/0.6)] animate-pulse;
   }
 
   .status-offline {
     @apply bg-muted-foreground;
   }
 
-  .status-busy {
-    @apply bg-warning shadow-[0_0_10px_hsl(48_96%_53%/0.3)];
+  .status-processing {
+    @apply bg-primary shadow-[0_0_15px_hsl(195_100%_50%/0.6)] animate-pulse;
   }
 
-  /* Professional Hover Effects */
+  .status-warning {
+    @apply bg-warning shadow-[0_0_15px_hsl(38_92%_50%/0.6)] animate-pulse;
+  }
+
+  /* Advanced Hover Effects */
   .hover-lift {
-    @apply transition-all duration-300 hover:-translate-y-1 hover:shadow-lg;
+    @apply transition-all duration-300 hover:-translate-y-2 hover:shadow-elevated;
   }
 
   .hover-glow {
-    @apply transition-all duration-300 hover:shadow-glow hover:border-primary/30;
+    @apply transition-all duration-300 hover:shadow-neon hover:border-primary;
+  }
+
+  .hover-float {
+    @apply transition-all duration-500 hover:-translate-y-3 hover:scale-105 hover:shadow-holographic;
+  }
+
+  .hover-shimmer {
+    @apply relative overflow-hidden;
+  }
+
+  .hover-shimmer::after {
+    content: '';
+    @apply absolute inset-0 translate-x-[-100%] bg-gradient-to-r from-transparent via-white/10 to-transparent;
+    transition: transform 0.6s;
+  }
+
+  .hover-shimmer:hover::after {
+    @apply translate-x-[100%];
+  }
+
+  /* Animated Gradient Background */
+  .animated-gradient {
+    background: linear-gradient(135deg, hsl(195 100% 50%), hsl(280 80% 50%), hsl(320 100% 50%));
+    background-size: 200% 200%;
+    animation: gradient-shift 8s ease infinite;
+  }
+
+  @keyframes gradient-shift {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+  }
+
+  /* Scan Line Effect */
+  .scan-lines {
+    @apply relative;
+  }
+
+  .scan-lines::before {
+    content: '';
+    @apply absolute inset-0 pointer-events-none;
+    background: repeating-linear-gradient(
+      0deg,
+      transparent,
+      transparent 2px,
+      hsl(195 100% 50% / 0.03) 2px,
+      hsl(195 100% 50% / 0.03) 4px
+    );
+  }
+
+  /* Grid Background */
+  .grid-bg {
+    background-image: 
+      linear-gradient(hsl(195 100% 50% / 0.05) 1px, transparent 1px),
+      linear-gradient(90deg, hsl(195 100% 50% / 0.05) 1px, transparent 1px);
+    background-size: 50px 50px;
   }
 }
 

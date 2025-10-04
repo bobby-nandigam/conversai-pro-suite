@@ -83,6 +83,9 @@ export default {
         "glow": "var(--shadow-glow)",
         "card": "var(--shadow-card)",
         "ai": "var(--shadow-lg)",
+        "neon": "var(--shadow-neon)",
+        "holographic": "var(--shadow-holographic)",
+        "elevated": "var(--shadow-elevated)",
       },
       animation: {
         "accordion-down": "accordion-down 0.2s ease-out",
