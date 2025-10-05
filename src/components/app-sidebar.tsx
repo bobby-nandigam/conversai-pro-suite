@@ -30,7 +30,7 @@ import { cn } from "@/lib/utils"
 
 const mainItems = [
   { title: "Dashboard", url: "/", icon: Home },
-  { title: "Bot Management", url: "/bots", icon: Bot },
+  { title: "Agent Management", url: "/agents", icon: Bot },
   { title: "Analytics", url: "/analytics", icon: BarChart3 },
   { title: "Conversations", url: "/conversations", icon: MessageSquare },
   { title: "Knowledge Base", url: "/knowledge", icon: BookOpen },

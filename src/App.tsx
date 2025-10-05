@@ -11,7 +11,7 @@ import { DashboardHeader } from "@/components/dashboard-header";
 import Dashboard from "./pages/Dashboard";
 import Analytics from "./pages/Analytics";
 import Conversations from "./pages/Conversations";
-import BotManagement from "./pages/BotManagement";
+import BotManagement from "./pages/AgentManagement";
 import BotBuilder from "./pages/BotBuilder";
 import Knowledge from "./pages/Knowledge";
 import Integrations from "./pages/Integrations";
@@ -39,6 +39,7 @@ const App = () => (
               <main className="flex-1">
                 <Routes>
                   <Route path="/" element={<Dashboard />} />
+                  <Route path="/agents" element={<BotManagement />} />
                   <Route path="/bots" element={<BotManagement />} />
                   <Route path="/bots/builder" element={
                     <BotBuilder />
