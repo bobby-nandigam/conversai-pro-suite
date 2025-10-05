@@ -6,7 +6,7 @@
 
 @layer base {
   :root {
-    /* Core Brand Colors - AI Theme */
+    /* Core Brand Colors - AI Theme (Dark) */
     --background: 240 10% 3.9%;
     --foreground: 0 0% 98%;
 
@@ -73,6 +73,77 @@
     --sidebar-accent: 240 6% 7%;
     --sidebar-accent-foreground: 0 0% 95%;
     --sidebar-border: 240 6% 8%;
+    --sidebar-ring: 250 84% 54%;
+  }
+
+  .light {
+    /* Core Brand Colors - AI Theme (Light) */
+    --background: 0 0% 100%;
+    --foreground: 240 10% 3.9%;
+
+    --card: 0 0% 100%;
+    --card-foreground: 240 10% 3.9%;
+
+    --popover: 0 0% 100%;
+    --popover-foreground: 240 10% 3.9%;
+
+    /* AI Brand Purple-Blue Gradient Theme */
+    --primary: 250 84% 54%;
+    --primary-foreground: 0 0% 98%;
+    --primary-glow: 250 100% 65%;
+    --primary-dark: 250 84% 45%;
+
+    /* AI Secondary Colors */
+    --secondary: 240 5% 96%;
+    --secondary-foreground: 240 6% 10%;
+
+    --muted: 240 5% 96%;
+    --muted-foreground: 240 4% 46%;
+
+    --accent: 260 75% 55%;
+    --accent-foreground: 0 0% 98%;
+
+    /* Status Colors */
+    --success: 142 76% 36%;
+    --success-foreground: 0 0% 98%;
+
+    --warning: 48 96% 53%;
+    --warning-foreground: 240 10% 3.9%;
+
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 0 0% 98%;
+
+    /* Interface Elements */
+    --border: 240 6% 90%;
+    --input: 240 6% 90%;
+    --ring: 250 84% 54%;
+
+    --radius: 0.75rem;
+
+    /* Professional Gradients */
+    --gradient-primary: linear-gradient(135deg, hsl(250 84% 54%), hsl(260 75% 55%));
+    --gradient-success: linear-gradient(135deg, hsl(142 76% 36%), hsl(158 64% 52%));
+    --gradient-warning: linear-gradient(135deg, hsl(48 96% 53%), hsl(43 74% 49%));
+    --gradient-card: linear-gradient(135deg, hsl(0 0% 100%), hsl(240 5% 98%));
+
+    /* Professional Shadows */
+    --shadow-lg: 0 20px 40px -12px hsl(250 84% 54% / 0.15);
+    --shadow-glow: 0 0 60px hsl(250 100% 65% / 0.1);
+    --shadow-card: 0 4px 24px -4px hsl(240 10% 3.9% / 0.1);
+
+    /* Animations */
+    --animation-fast: 200ms cubic-bezier(0.4, 0, 0.2, 1);
+    --animation-medium: 300ms cubic-bezier(0.4, 0, 0.2, 1);
+    --animation-slow: 500ms cubic-bezier(0.4, 0, 0.2, 1);
+
+    /* Sidebar */
+    --sidebar-background: 0 0% 98%;
+    --sidebar-foreground: 240 6% 10%;
+    --sidebar-primary: 250 84% 54%;
+    --sidebar-primary-foreground: 0 0% 98%;
+    --sidebar-accent: 240 5% 96%;
+    --sidebar-accent-foreground: 240 6% 10%;
+    --sidebar-border: 240 6% 92%;
     --sidebar-ring: 250 84% 54%;
   }
 }

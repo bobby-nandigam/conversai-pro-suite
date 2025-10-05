@@ -1,4 +1,4 @@
-import { Bell, Search, User, ChevronDown } from "lucide-react"
+import { Bell, Search, User, ChevronDown, Sun, Moon } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import {
@@ -11,8 +11,11 @@ import {
 } from "@/components/ui/dropdown-menu"
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import { SidebarTrigger } from "@/components/ui/sidebar"
+import { useTheme } from "@/components/theme-provider"
 
 export function DashboardHeader() {
+  const { theme, setTheme } = useTheme()
+  
   return (
     <header className="h-16 border-b border-border bg-card/50 backdrop-blur-sm sticky top-0 z-50">
       <div className="flex items-center justify-between h-full px-4 lg:px-6">
@@ -31,6 +34,17 @@ export function DashboardHeader() {
 
         {/* Right section */}
         <div className="flex items-center gap-3">
+          {/* Theme Toggle */}
+          <Button 
+            variant="ghost" 
+            size="icon"
+            onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
+          >
+            <Sun className="h-4 w-4 rotate-0 scale-100 transition-all dark:-rotate-90 dark:scale-0" />
+            <Moon className="absolute h-4 w-4 rotate-90 scale-0 transition-all dark:rotate-0 dark:scale-100" />
+            <span className="sr-only">Toggle theme</span>
+          </Button>
+
           {/* Notifications */}
           <Button variant="ghost" size="icon" className="relative">
             <Bell className="h-4 w-4" />
