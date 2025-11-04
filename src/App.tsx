@@ -21,6 +21,7 @@ import Testing from "./pages/Testing";
 import Settings from "./pages/Settings";
 import Voice from "./pages/Voice";
 import Security from "./pages/Security";
+import Documentation from "./pages/Documentation";
 import Placeholder from "./pages/Placeholder";
 import NotFound from "./pages/NotFound";
 
@@ -55,6 +56,7 @@ const App = () => (
                     <Route path="/voice" element={<Voice />} />
                     <Route path="/security" element={<Security />} />
                     <Route path="/settings" element={<Settings />} />
+                    <Route path="/documentation" element={<Documentation />} />
                     <Route path="*" element={<NotFound />} />
                   </Routes>
                 </main>

@@ -11,7 +11,8 @@ import {
   Home,
   Brain,
   Phone,
-  TestTube
+  TestTube,
+  FileText
 } from "lucide-react"
 import { NavLink, useLocation } from "react-router-dom"
 import {
@@ -41,6 +42,7 @@ const advancedItems = [
   { title: "Team Management", url: "/team", icon: Users },
   { title: "Testing Suite", url: "/testing", icon: TestTube },
   { title: "Voice Interface", url: "/voice", icon: Phone },
+  { title: "Documentation", url: "/documentation", icon: FileText },
 ]
 
 const systemItems = [
