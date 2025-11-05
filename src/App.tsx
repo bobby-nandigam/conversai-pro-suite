@@ -24,6 +24,13 @@ import Security from "./pages/Security";
 import Documentation from "./pages/Documentation";
 import Placeholder from "./pages/Placeholder";
 import NotFound from "./pages/NotFound";
+import WorkflowBuilder from "./pages/WorkflowBuilder";
+import Marketplace from "./pages/Marketplace";
+import ExplainableAI from "./pages/ExplainableAI";
+import CollaborativeEditing from "./pages/CollaborativeEditing";
+import TemporalDebugger from "./pages/TemporalDebugger";
+import SelfHealing from "./pages/SelfHealing";
+import MultimodalInterface from "./pages/MultimodalInterface";
 
 const queryClient = new QueryClient();
 
@@ -44,9 +51,7 @@ const App = () => (
                     <Route path="/" element={<Dashboard />} />
                     <Route path="/agents" element={<BotManagement />} />
                     <Route path="/bots" element={<BotManagement />} />
-                    <Route path="/bots/builder" element={
-                      <BotBuilder />
-                    } />
+                    <Route path="/bots/builder" element={<BotBuilder />} />
                     <Route path="/analytics" element={<Analytics />} />
                     <Route path="/conversations" element={<Conversations />} />
                     <Route path="/knowledge" element={<Knowledge />} />
@@ -57,6 +62,13 @@ const App = () => (
                     <Route path="/security" element={<Security />} />
                     <Route path="/settings" element={<Settings />} />
                     <Route path="/documentation" element={<Documentation />} />
+                    <Route path="/workflow-builder" element={<WorkflowBuilder />} />
+                    <Route path="/marketplace" element={<Marketplace />} />
+                    <Route path="/explainable-ai" element={<ExplainableAI />} />
+                    <Route path="/collaborative-editing" element={<CollaborativeEditing />} />
+                    <Route path="/temporal-debugger" element={<TemporalDebugger />} />
+                    <Route path="/self-healing" element={<SelfHealing />} />
+                    <Route path="/multimodal-interface" element={<MultimodalInterface />} />
                     <Route path="*" element={<NotFound />} />
                   </Routes>
                 </main>
