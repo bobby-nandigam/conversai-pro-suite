@@ -12,7 +12,14 @@ import {
   Brain,
   Phone,
   TestTube,
-  FileText
+  FileText,
+  Workflow,
+  Store,
+  Lightbulb,
+  UserCircle,
+  Clock,
+  HeartPulse,
+  Mic
 } from "lucide-react"
 import { NavLink, useLocation } from "react-router-dom"
 import {
@@ -38,6 +45,16 @@ const mainItems = [
 ]
 
 const advancedItems = [
+  { title: "Workflow Builder", url: "/workflow-builder", icon: Workflow },
+  { title: "Explainable AI", url: "/explainable-ai", icon: Lightbulb },
+  { title: "Collaborative Editing", url: "/collaborative-editing", icon: UserCircle },
+  { title: "Marketplace", url: "/marketplace", icon: Store },
+  { title: "Temporal Debugger", url: "/temporal-debugger", icon: Clock },
+  { title: "Self-Healing", url: "/self-healing", icon: HeartPulse },
+  { title: "Multimodal Interface", url: "/multimodal", icon: Mic },
+]
+
+const toolsItems = [
   { title: "Integrations", url: "/integrations", icon: Zap },
   { title: "Team Management", url: "/team", icon: Users },
   { title: "Testing Suite", url: "/testing", icon: TestTube },
@@ -103,12 +120,31 @@ export function AppSidebar() {
           </SidebarGroupContent>
         </SidebarGroup>
 
-        {/* Advanced Features */}
+        {/* Advanced AI Features */}
         <SidebarGroup>
-          <SidebarGroupLabel className="text-sidebar-foreground/80">Advanced</SidebarGroupLabel>
+          <SidebarGroupLabel className="text-sidebar-foreground/80">Advanced AI</SidebarGroupLabel>
           <SidebarGroupContent>
             <SidebarMenu>
               {advancedItems.map((item) => (
+                <SidebarMenuItem key={item.title}>
+                  <SidebarMenuButton asChild>
+                    <NavLink to={item.url} className={getNavCls}>
+                      <item.icon className="w-4 h-4" />
+                      {!isCollapsed && <span>{item.title}</span>}
+                    </NavLink>
+                  </SidebarMenuButton>
+                </SidebarMenuItem>
+              ))}
+            </SidebarMenu>
+          </SidebarGroupContent>
+        </SidebarGroup>
+
+        {/* Tools */}
+        <SidebarGroup>
+          <SidebarGroupLabel className="text-sidebar-foreground/80">Tools</SidebarGroupLabel>
+          <SidebarGroupContent>
+            <SidebarMenu>
+              {toolsItems.map((item) => (
                 <SidebarMenuItem key={item.title}>
                   <SidebarMenuButton asChild>
                     <NavLink to={item.url} className={getNavCls}>
