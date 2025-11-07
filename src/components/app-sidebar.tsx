@@ -19,7 +19,8 @@ import {
   UserCircle,
   Clock,
   HeartPulse,
-  Mic
+  Mic,
+  Activity
 } from "lucide-react"
 import { NavLink, useLocation } from "react-router-dom"
 import {
@@ -51,7 +52,8 @@ const advancedItems = [
   { title: "Marketplace", url: "/marketplace", icon: Store },
   { title: "Temporal Debugger", url: "/temporal-debugger", icon: Clock },
   { title: "Self-Healing", url: "/self-healing", icon: HeartPulse },
-  { title: "Multimodal Interface", url: "/multimodal", icon: Mic },
+  { title: "Multimodal Interface", url: "/multimodal-interface", icon: Mic },
+  { title: "AI Agent Monitoring", url: "/multimodal-interface#monitoring", icon: Activity },
 ]
 
 const toolsItems = [
