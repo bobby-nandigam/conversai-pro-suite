@@ -199,17 +199,17 @@ export default function WorkflowBuilder() {
   };
 
   return (
-    <div className="flex-1 p-6 space-y-6">
+    <div className="flex-1 p-6 space-y-6 bg-background">
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-3xl font-bold bg-gradient-to-r from-primary to-primary/60 bg-clip-text text-transparent">
+          <h1 className="text-3xl font-bold bg-gradient-primary bg-clip-text text-transparent">
             Natural Language Workflow Builder
           </h1>
           <p className="text-muted-foreground mt-1">
             Create complex workflows using voice or text - no coding required
           </p>
         </div>
-        <Badge variant="outline" className="text-sm">
+        <Badge variant="secondary" className="text-sm bg-primary/10 text-primary border-primary/20">
           <Wand2 className="w-3 h-3 mr-1" />
           AI-Powered
         </Badge>
@@ -217,10 +217,10 @@ export default function WorkflowBuilder() {
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
         {/* Chat Interface */}
-        <Card className="flex flex-col h-[calc(100vh-200px)]">
-          <CardHeader>
-            <CardTitle className="flex items-center gap-2">
-              <Wand2 className="w-5 h-5" />
+        <Card className="flex flex-col h-[calc(100vh-200px)] border-border bg-card shadow-sm">
+          <CardHeader className="border-b border-border">
+            <CardTitle className="flex items-center gap-2 text-foreground">
+              <Wand2 className="w-5 h-5 text-primary" />
               Conversation
             </CardTitle>
           </CardHeader>
@@ -233,10 +233,10 @@ export default function WorkflowBuilder() {
                     className={`flex ${message.role === "user" ? "justify-end" : "justify-start"}`}
                   >
                     <div
-                      className={`max-w-[80%] rounded-lg p-4 ${
+                      className={`max-w-[80%] rounded-lg p-4 shadow-sm ${
                         message.role === "user"
                           ? "bg-primary text-primary-foreground"
-                          : "bg-muted"
+                          : "bg-muted/50 text-foreground border border-border"
                       }`}
                     >
                       <p className="text-sm">{message.content}</p>
@@ -284,11 +284,11 @@ export default function WorkflowBuilder() {
         </Card>
 
         {/* Workflow Preview */}
-        <Card className="h-[calc(100vh-200px)]">
-          <CardHeader>
-            <CardTitle className="flex items-center justify-between">
+        <Card className="h-[calc(100vh-200px)] border-border bg-card shadow-sm">
+          <CardHeader className="border-b border-border">
+            <CardTitle className="flex items-center justify-between text-foreground">
               <span className="flex items-center gap-2">
-                <Eye className="w-5 h-5" />
+                <Eye className="w-5 h-5 text-primary" />
                 Generated Workflow
               </span>
               {selectedWorkflow && (
@@ -316,8 +316,8 @@ export default function WorkflowBuilder() {
                   </Button>
                 </div>
 
-                <div className="border rounded-lg p-4 bg-muted/30">
-                  <h4 className="font-semibold mb-2">Workflow Details</h4>
+                <div className="border border-border rounded-lg p-4 bg-muted/20">
+                  <h4 className="font-semibold mb-2 text-foreground">Workflow Details</h4>
                   <p className="text-sm text-muted-foreground mb-4">
                     {selectedWorkflow.description}
                   </p>
@@ -325,7 +325,7 @@ export default function WorkflowBuilder() {
                     {selectedWorkflow.nodes.map((node, index) => (
                       <div
                         key={node.id}
-                        className="flex items-center gap-3 p-3 bg-background rounded-lg border"
+                        className="flex items-center gap-3 p-3 bg-background rounded-lg border border-border shadow-sm hover:shadow-md transition-shadow"
                       >
                         <div className="w-8 h-8 rounded-full bg-primary/10 flex items-center justify-center text-xs font-bold text-primary">
                           {index + 1}
@@ -358,17 +358,17 @@ export default function WorkflowBuilder() {
 
       {/* Generated Workflows History */}
       {generatedWorkflows.length > 0 && (
-        <Card>
-          <CardHeader>
-            <CardTitle>Recent Workflows</CardTitle>
+        <Card className="border-border bg-card shadow-sm">
+          <CardHeader className="border-b border-border">
+            <CardTitle className="text-foreground">Recent Workflows</CardTitle>
           </CardHeader>
           <CardContent>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
               {generatedWorkflows.map((workflow) => (
                 <Card
                   key={workflow.id}
-                  className={`cursor-pointer transition-all hover:shadow-lg ${
-                    selectedWorkflow?.id === workflow.id ? "ring-2 ring-primary" : ""
+                  className={`cursor-pointer transition-all hover:shadow-lg border-border bg-card ${
+                    selectedWorkflow?.id === workflow.id ? "ring-2 ring-primary shadow-lg" : ""
                   }`}
                   onClick={() => setSelectedWorkflow(workflow)}
                 >

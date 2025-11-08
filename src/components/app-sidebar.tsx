@@ -53,7 +53,7 @@ const advancedItems = [
   { title: "Temporal Debugger", url: "/temporal-debugger", icon: Clock },
   { title: "Self-Healing", url: "/self-healing", icon: HeartPulse },
   { title: "Multimodal Interface", url: "/multimodal-interface", icon: Mic },
-  { title: "AI Agent Monitoring", url: "/multimodal-interface#monitoring", icon: Activity },
+  { title: "AI Agent Monitoring", url: "/agent-monitoring", icon: Activity },
 ]
 
 const toolsItems = [
@@ -96,7 +96,7 @@ export function AppSidebar() {
             </div>
             {!isCollapsed && (
               <div>
-                <h1 className="font-bold text-lg text-sidebar-foreground">ConversaAI</h1>
+                <h1 className="font-bold text-lg text-sidebar-foreground">PixelMind AI</h1>
                 <p className="text-xs text-sidebar-foreground/60">Pro Platform</p>
               </div>
             )}

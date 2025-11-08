@@ -31,6 +31,7 @@ import CollaborativeEditing from "./pages/CollaborativeEditing";
 import TemporalDebugger from "./pages/TemporalDebugger";
 import SelfHealing from "./pages/SelfHealing";
 import MultimodalInterface from "./pages/MultimodalInterface";
+import AgentMonitoring from "./pages/AgentMonitoring";
 
 const queryClient = new QueryClient();
 
@@ -69,6 +70,7 @@ const App = () => (
                     <Route path="/temporal-debugger" element={<TemporalDebugger />} />
                     <Route path="/self-healing" element={<SelfHealing />} />
                     <Route path="/multimodal-interface" element={<MultimodalInterface />} />
+                    <Route path="/agent-monitoring" element={<AgentMonitoring />} />
                     <Route path="*" element={<NotFound />} />
                   </Routes>
                 </main>

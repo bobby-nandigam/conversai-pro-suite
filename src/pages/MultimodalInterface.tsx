@@ -5,10 +5,9 @@ import { Badge } from "@/components/ui/badge";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
-import { Mic, Upload, Hand, Eye, Type, Video, FileText, Activity, Settings, Play, Pause, Save, Zap, Users, TrendingUp, Cpu, AlertCircle, CheckCircle, Clock, BarChart3, Terminal } from "lucide-react";
+import { Mic, Upload, Hand, Eye, Type, Video, FileText, Activity, Settings, Play, Pause, Save, Zap, Users, TrendingUp } from "lucide-react";
 import { useToast } from "@/components/ui/use-toast";
 import { AgentCanvas } from "@/components/agent-builder/AgentCanvas";
-import { Progress } from "@/components/ui/progress";
 import { Separator } from "@/components/ui/separator";
 import { ScrollArea } from "@/components/ui/scroll-area";
 
@@ -18,18 +17,6 @@ interface Activity {
   message: string;
   timestamp: Date;
   status: "success" | "processing" | "error";
-}
-
-interface AgentMetrics {
-  id: string;
-  name: string;
-  status: "online" | "processing" | "offline" | "error";
-  uptime: string;
-  requestsHandled: number;
-  avgResponseTime: string;
-  errorRate: string;
-  cpu: number;
-  memory: number;
 }
 
 export default function MultimodalInterface() {
@@ -44,52 +31,6 @@ export default function MultimodalInterface() {
     gesturesUsed: 0,
     filesUploaded: 0,
   });
-  const [agentMetrics, setAgentMetrics] = useState<AgentMetrics[]>([
-    {
-      id: "agent-1",
-      name: "Sentiment Analysis Agent",
-      status: "online",
-      uptime: "12h 34m",
-      requestsHandled: 1247,
-      avgResponseTime: "142ms",
-      errorRate: "0.2%",
-      cpu: 32,
-      memory: 45,
-    },
-    {
-      id: "agent-2",
-      name: "Document Processing Agent",
-      status: "processing",
-      uptime: "8h 12m",
-      requestsHandled: 892,
-      avgResponseTime: "324ms",
-      errorRate: "0.5%",
-      cpu: 68,
-      memory: 72,
-    },
-    {
-      id: "agent-3",
-      name: "Voice Recognition Agent",
-      status: "online",
-      uptime: "24h 10m",
-      requestsHandled: 2341,
-      avgResponseTime: "89ms",
-      errorRate: "0.1%",
-      cpu: 24,
-      memory: 38,
-    },
-    {
-      id: "agent-4",
-      name: "Visual Analysis Agent",
-      status: "offline",
-      uptime: "0h 0m",
-      requestsHandled: 0,
-      avgResponseTime: "0ms",
-      errorRate: "0%",
-      cpu: 0,
-      memory: 0,
-    },
-  ]);
   const { toast } = useToast();
 
   const addActivity = (type: Activity["type"], message: string, status: Activity["status"] = "success") => {
@@ -592,265 +533,74 @@ export default function MultimodalInterface() {
         </TabsContent>
       </Tabs>
 
-      {/* AI Agent Monitoring Section */}
-      <Card>
-        <CardHeader>
-          <div className="flex items-center justify-between">
-            <div>
-              <CardTitle className="flex items-center gap-2">
-                <Cpu className="w-5 h-5 text-primary" />
-                AI Agent Monitoring
-              </CardTitle>
-              <CardDescription>Real-time performance metrics for all active agents</CardDescription>
-            </div>
-            <div className="flex items-center gap-2">
-              <Badge variant="outline" className="text-xs">
-                <CheckCircle className="w-3 h-3 mr-1 text-success" />
-                {agentMetrics.filter((a) => a.status === "online").length} Online
-              </Badge>
-              <Badge variant="outline" className="text-xs">
-                <Activity className="w-3 h-3 mr-1 text-warning animate-pulse" />
-                {agentMetrics.filter((a) => a.status === "processing").length} Processing
-              </Badge>
-              <Badge variant="outline" className="text-xs">
-                <AlertCircle className="w-3 h-3 mr-1 text-destructive" />
-                {agentMetrics.filter((a) => a.status === "offline" || a.status === "error").length} Offline
-              </Badge>
-            </div>
-          </div>
-        </CardHeader>
-        <CardContent>
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
-            {agentMetrics.map((agent) => (
-              <Card key={agent.id} className="relative overflow-hidden">
-                <div
-                  className={`absolute top-0 left-0 w-full h-1 ${
-                    agent.status === "online"
-                      ? "bg-success"
-                      : agent.status === "processing"
-                      ? "bg-warning animate-pulse"
-                      : agent.status === "error"
-                      ? "bg-destructive"
-                      : "bg-muted"
-                  }`}
-                />
-                <CardHeader>
-                  <div className="flex items-start justify-between">
-                    <div className="flex-1">
-                      <CardTitle className="text-base">{agent.name}</CardTitle>
-                      <div className="flex items-center gap-2 mt-2">
-                        <Badge
-                          variant={
-                            agent.status === "online"
-                              ? "default"
-                              : agent.status === "processing"
-                              ? "secondary"
-                              : "outline"
-                          }
-                          className="text-xs"
-                        >
-                          {agent.status === "online" && <CheckCircle className="w-3 h-3 mr-1" />}
-                          {agent.status === "processing" && <Activity className="w-3 h-3 mr-1 animate-spin" />}
-                          {agent.status === "offline" && <AlertCircle className="w-3 h-3 mr-1" />}
-                          {agent.status === "error" && <AlertCircle className="w-3 h-3 mr-1" />}
-                          {agent.status.charAt(0).toUpperCase() + agent.status.slice(1)}
-                        </Badge>
-                        <Badge variant="outline" className="text-xs">
-                          <Clock className="w-3 h-3 mr-1" />
-                          {agent.uptime}
-                        </Badge>
-                      </div>
-                    </div>
-                    <Button variant="ghost" size="icon" className="h-8 w-8">
-                      <Terminal className="w-4 h-4" />
-                    </Button>
-                  </div>
-                </CardHeader>
-                <CardContent className="space-y-4">
-                  <div className="grid grid-cols-2 gap-4">
-                    <div className="space-y-1">
-                      <p className="text-xs text-muted-foreground">Requests Handled</p>
-                      <p className="text-lg font-semibold">{agent.requestsHandled.toLocaleString()}</p>
-                    </div>
-                    <div className="space-y-1">
-                      <p className="text-xs text-muted-foreground">Avg Response Time</p>
-                      <p className="text-lg font-semibold">{agent.avgResponseTime}</p>
-                    </div>
-                    <div className="space-y-1">
-                      <p className="text-xs text-muted-foreground">Error Rate</p>
-                      <p className="text-lg font-semibold">{agent.errorRate}</p>
-                    </div>
-                    <div className="space-y-1">
-                      <p className="text-xs text-muted-foreground">Status</p>
-                      <div className="flex items-center gap-1">
-                        <div
-                          className={`w-2 h-2 rounded-full ${
-                            agent.status === "online"
-                              ? "bg-success animate-pulse"
-                              : agent.status === "processing"
-                              ? "bg-warning animate-pulse"
-                              : "bg-muted"
-                          }`}
-                        />
-                        <p className="text-sm font-medium">
-                          {agent.status === "online" ? "Active" : agent.status === "processing" ? "Working" : "Inactive"}
-                        </p>
-                      </div>
-                    </div>
-                  </div>
-
-                  <Separator />
-
-                  <div className="space-y-3">
-                    <div className="space-y-2">
-                      <div className="flex items-center justify-between text-xs">
-                        <span className="text-muted-foreground">CPU Usage</span>
-                        <span className="font-medium">{agent.cpu}%</span>
-                      </div>
-                      <Progress value={agent.cpu} className="h-2" />
-                    </div>
-                    <div className="space-y-2">
-                      <div className="flex items-center justify-between text-xs">
-                        <span className="text-muted-foreground">Memory Usage</span>
-                        <span className="font-medium">{agent.memory}%</span>
-                      </div>
-                      <Progress value={agent.memory} className="h-2" />
-                    </div>
-                  </div>
-
-                  <div className="flex gap-2 pt-2">
-                    <Button variant="outline" size="sm" className="flex-1">
-                      <BarChart3 className="w-3 h-3 mr-1" />
-                      View Logs
-                    </Button>
-                    <Button variant="outline" size="sm" className="flex-1">
-                      <Settings className="w-3 h-3 mr-1" />
-                      Configure
-                    </Button>
-                  </div>
-                </CardContent>
-              </Card>
-            ))}
-          </div>
-        </CardContent>
-      </Card>
-
       {/* Main Content Grid */}
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-        {/* Workflow Canvas - Takes 2 columns */}
-        <div className="lg:col-span-2">
-          <Card className="h-full">
-            <CardHeader>
-              <div className="flex items-center justify-between">
-                <div>
-                  <CardTitle>Workflow Canvas</CardTitle>
-                  <CardDescription>
-                    Your workflow responds to all input modes in real-time
-                  </CardDescription>
-                </div>
-                <div className="flex items-center gap-2">
-                  {isProcessing && (
-                    <Badge variant="outline" className="animate-pulse">
-                      <Activity className="w-3 h-3 mr-1" />
-                      Processing
-                    </Badge>
-                  )}
-                  <Button variant="outline" size="sm">
-                    <Save className="w-4 h-4 mr-2" />
-                    Save
-                  </Button>
-                </div>
-              </div>
-            </CardHeader>
-            <CardContent>
-              <div className="border-2 border-dashed rounded-lg h-[500px] bg-muted/30 overflow-hidden relative">
-                <AgentCanvas />
-                {isProcessing && (
-                  <div className="absolute inset-0 bg-background/50 backdrop-blur-sm flex items-center justify-center">
-                    <div className="text-center space-y-3">
-                      <Activity className="w-8 h-8 animate-spin mx-auto text-primary" />
-                      <p className="text-sm font-medium">Processing your input...</p>
-                    </div>
-                  </div>
-                )}
-              </div>
-            </CardContent>
-          </Card>
-        </div>
+        {/* Workflow Canvas */}
+        <Card className="lg:col-span-2 border-border bg-card shadow-sm">
+          <CardHeader className="border-b border-border">
+            <CardTitle className="text-foreground">Workflow Canvas</CardTitle>
+            <CardDescription>Your multimodal workflow builder</CardDescription>
+          </CardHeader>
+          <CardContent className="pt-6">
+            <div className="border border-border rounded-lg h-[600px] overflow-hidden bg-muted/20">
+              <AgentCanvas />
+            </div>
+          </CardContent>
+        </Card>
 
-        {/* Activity Feed - Takes 1 column */}
-        <div className="lg:col-span-1">
-          <Card className="h-full">
-            <CardHeader>
-              <CardTitle className="flex items-center gap-2">
-                <Activity className="w-5 h-5" />
-                Activity Feed
-              </CardTitle>
-              <CardDescription>Real-time updates from all input modes</CardDescription>
-            </CardHeader>
-            <CardContent>
-              <ScrollArea className="h-[500px] pr-4">
-                <div className="space-y-3">
-                  {activities.length === 0 ? (
-                    <div className="text-center py-12">
-                      <Activity className="w-12 h-12 mx-auto text-muted-foreground/50 mb-3" />
-                      <p className="text-sm text-muted-foreground">No activities yet</p>
-                      <p className="text-xs text-muted-foreground mt-1">
-                        Start interacting to see updates
-                      </p>
-                    </div>
-                  ) : (
-                    activities.map((activity) => (
-                      <div
-                        key={activity.id}
-                        className="p-4 rounded-lg border bg-card hover:bg-accent/5 transition-colors"
-                      >
-                        <div className="flex items-start gap-3">
-                          <div
-                            className={`w-8 h-8 rounded-full flex items-center justify-center flex-shrink-0 ${
-                              activity.type === "voice"
-                                ? "bg-primary/10"
-                                : activity.type === "text"
-                                ? "bg-blue-500/10"
-                                : activity.type === "gesture"
-                                ? "bg-purple-500/10"
-                                : "bg-orange-500/10"
-                            }`}
-                          >
-                            {activity.type === "voice" && <Mic className="w-4 h-4 text-primary" />}
-                            {activity.type === "text" && <Type className="w-4 h-4 text-blue-500" />}
-                            {activity.type === "gesture" && <Hand className="w-4 h-4 text-purple-500" />}
-                            {activity.type === "visual" && <Upload className="w-4 h-4 text-orange-500" />}
+        {/* Activity Feed */}
+        <Card className="border-border bg-card shadow-sm">
+          <CardHeader className="border-b border-border">
+            <CardTitle className="text-sm text-foreground">Activity Feed</CardTitle>
+            <CardDescription className="text-xs">Recent actions and events</CardDescription>
+          </CardHeader>
+          <CardContent className="pt-6">
+            <ScrollArea className="h-[600px] pr-4">
+              {activities.length === 0 ? (
+                <div className="flex flex-col items-center justify-center h-full text-muted-foreground">
+                  <Activity className="w-12 h-12 mb-4 opacity-20" />
+                  <p className="text-sm">No activity yet</p>
+                  <p className="text-xs mt-1">Start interacting with the interface</p>
+                </div>
+              ) : (
+                <div className="space-y-4">
+                  {activities.map((activity) => (
+                    <div key={activity.id} className="border-l-2 border-primary pl-4 pb-4">
+                      <div className="flex items-start gap-3">
+                        <div className="w-8 h-8 rounded-full bg-primary/10 flex items-center justify-center flex-shrink-0 mt-1">
+                          {activity.type === "voice" && <Mic className="w-4 h-4 text-primary" />}
+                          {activity.type === "text" && <Type className="w-4 h-4 text-primary" />}
+                          {activity.type === "gesture" && <Hand className="w-4 h-4 text-primary" />}
+                          {activity.type === "visual" && <Upload className="w-4 h-4 text-primary" />}
+                        </div>
+                        <div className="flex-1 min-w-0">
+                          <div className="flex items-center gap-2 mb-1">
+                            <Badge
+                              variant={
+                                activity.status === "success"
+                                  ? "default"
+                                  : activity.status === "processing"
+                                  ? "secondary"
+                                  : "destructive"
+                              }
+                              className="text-xs"
+                            >
+                              {activity.status}
+                            </Badge>
+                            <span className="text-xs text-muted-foreground">
+                              {activity.timestamp.toLocaleTimeString()}
+                            </span>
                           </div>
-                          <div className="flex-1 min-w-0">
-                            <div className="flex items-center gap-2 mb-1">
-                              <Badge
-                                variant={
-                                  activity.status === "success"
-                                    ? "default"
-                                    : activity.status === "processing"
-                                    ? "secondary"
-                                    : "destructive"
-                                }
-                                className="text-xs"
-                              >
-                                {activity.status}
-                              </Badge>
-                              <span className="text-xs text-muted-foreground">
-                                {activity.timestamp.toLocaleTimeString()}
-                              </span>
-                            </div>
-                            <p className="text-sm">{activity.message}</p>
-                          </div>
+                          <p className="text-sm text-foreground">{activity.message}</p>
                         </div>
                       </div>
-                    ))
-                  )}
+                    </div>
+                  ))}
                 </div>
-              </ScrollArea>
-            </CardContent>
-          </Card>
-        </div>
+              )}
+            </ScrollArea>
+          </CardContent>
+        </Card>
       </div>
     </div>
   );

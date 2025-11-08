@@ -87,11 +87,11 @@ export default function CollaborativeEditing() {
   const getStatusColor = (status: TeamMember["status"]) => {
     switch (status) {
       case "online":
-        return "bg-green-500";
+        return "bg-green-500 dark:bg-green-400";
       case "away":
-        return "bg-yellow-500";
+        return "bg-yellow-500 dark:bg-yellow-400";
       case "offline":
-        return "bg-gray-400";
+        return "bg-muted-foreground";
     }
   };
 
@@ -112,37 +112,37 @@ export default function CollaborativeEditing() {
   };
 
   return (
-    <div className="flex-1 p-6 space-y-6">
+    <div className="flex-1 p-6 space-y-6 bg-background">
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-3xl font-bold bg-gradient-to-r from-primary to-primary/60 bg-clip-text text-transparent">
+          <h1 className="text-3xl font-bold bg-gradient-primary bg-clip-text text-transparent">
             Real-Time Collaborative Editing
           </h1>
           <p className="text-muted-foreground mt-1">
-            Build and refine agents together with your team
+            Build and refine agents together with your team in real-time
           </p>
         </div>
-        <Button>
+        <Button className="shadow-lg">
           <Users className="w-4 h-4 mr-2" />
           Invite Members
         </Button>
       </div>
 
       {/* Team Members Online */}
-      <Card>
+      <Card className="border-border bg-card shadow-sm">
         <CardContent className="pt-6">
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-4">
               <div className="flex items-center gap-2">
-                <Activity className="w-4 h-4 text-muted-foreground" />
-                <span className="text-sm font-semibold">Team Members</span>
+                <Activity className="w-5 h-5 text-primary" />
+                <span className="text-sm font-semibold text-foreground">Team Members</span>
               </div>
               <div className="flex -space-x-2">
                 {teamMembers.map((member) => (
-                  <div key={member.id} className="relative">
-                    <Avatar className="border-2 border-background">
+                  <div key={member.id} className="relative group cursor-pointer">
+                    <Avatar className="border-2 border-card transition-transform group-hover:scale-110">
                       <AvatarImage src={member.avatar} />
-                      <AvatarFallback style={{ backgroundColor: member.color }}>
+                      <AvatarFallback style={{ backgroundColor: member.color }} className="text-white font-semibold">
                         {member.name
                           .split(" ")
                           .map((n) => n[0])
@@ -150,7 +150,7 @@ export default function CollaborativeEditing() {
                       </AvatarFallback>
                     </Avatar>
                     <div
-                      className={`absolute bottom-0 right-0 w-3 h-3 rounded-full border-2 border-background ${getStatusColor(
+                      className={`absolute bottom-0 right-0 w-3 h-3 rounded-full border-2 border-card ${getStatusColor(
                         member.status
                       )}`}
                     />
@@ -158,12 +158,12 @@ export default function CollaborativeEditing() {
                 ))}
               </div>
             </div>
-            <div className="flex gap-2 text-sm text-muted-foreground">
-              <Badge variant="outline">
+            <div className="flex gap-2 text-sm">
+              <Badge variant="secondary" className="bg-primary/10 text-primary border-primary/20">
                 <Users className="w-3 h-3 mr-1" />
                 {teamMembers.filter((m) => m.status === "online").length} online
               </Badge>
-              <Badge variant="outline">
+              <Badge variant="secondary" className="bg-accent/10 text-accent-foreground border-accent/20">
                 <Lock className="w-3 h-3 mr-1" />
                 2 nodes locked
               </Badge>
@@ -175,9 +175,9 @@ export default function CollaborativeEditing() {
       <div className="grid grid-cols-1 lg:grid-cols-4 gap-6">
         {/* Main Canvas */}
         <div className="lg:col-span-3">
-          <Card>
-            <CardHeader>
-              <CardTitle className="flex items-center justify-between">
+          <Card className="border-border bg-card shadow-sm">
+            <CardHeader className="border-b border-border">
+              <CardTitle className="flex items-center justify-between text-foreground">
                 <span>Agent Workflow</span>
                 <div className="flex gap-2">
                   {teamMembers
@@ -195,7 +195,7 @@ export default function CollaborativeEditing() {
               </CardTitle>
             </CardHeader>
             <CardContent>
-              <div className="border rounded-lg h-[600px] relative overflow-hidden bg-muted/30">
+              <div className="border border-border rounded-lg h-[600px] relative overflow-hidden bg-muted/20">
                 <AgentCanvas />
                 
                 {/* Live Cursors */}
@@ -235,9 +235,9 @@ export default function CollaborativeEditing() {
         {/* Comments & Activity Panel */}
         <div className="space-y-6">
           {/* Active Team Members */}
-          <Card>
-            <CardHeader>
-              <CardTitle className="text-base">Active Now</CardTitle>
+          <Card className="border-border bg-card shadow-sm">
+            <CardHeader className="border-b border-border">
+              <CardTitle className="text-base text-foreground">Active Now</CardTitle>
             </CardHeader>
             <CardContent>
               <div className="space-y-3">
@@ -273,10 +273,10 @@ export default function CollaborativeEditing() {
           </Card>
 
           {/* Comments */}
-          <Card className="flex flex-col h-[480px]">
-            <CardHeader>
-              <CardTitle className="text-base flex items-center gap-2">
-                <MessageSquare className="w-4 h-4" />
+          <Card className="flex flex-col h-[480px] border-border bg-card shadow-sm">
+            <CardHeader className="border-b border-border">
+              <CardTitle className="text-base flex items-center gap-2 text-foreground">
+                <MessageSquare className="w-4 h-4 text-primary" />
                 Comments
               </CardTitle>
             </CardHeader>
@@ -338,10 +338,10 @@ export default function CollaborativeEditing() {
       </div>
 
       {/* Recent Activity */}
-      <Card>
-        <CardHeader>
-          <CardTitle className="text-base flex items-center gap-2">
-            <Clock className="w-4 h-4" />
+      <Card className="border-border bg-card shadow-sm">
+        <CardHeader className="border-b border-border">
+          <CardTitle className="text-base flex items-center gap-2 text-foreground">
+            <Clock className="w-4 h-4 text-primary" />
             Recent Activity
           </CardTitle>
         </CardHeader>
