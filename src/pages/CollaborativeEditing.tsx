@@ -1,13 +1,46 @@
-import { useState } from "react";
+import { useState, useCallback, useEffect, useRef } from "react";
+import ReactFlow, {
+  MiniMap,
+  Controls,
+  Background,
+  useNodesState,
+  useEdgesState,
+  addEdge,
+  Connection,
+  Edge,
+  Node,
+  BackgroundVariant,
+} from 'reactflow';
+import 'reactflow/dist/style.css';
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { ScrollArea } from "@/components/ui/scroll-area";
-import { Users, MessageSquare, Lock, AtSign, Clock, Activity } from "lucide-react";
-import { AgentCanvas } from "@/components/agent-builder/AgentCanvas";
+import { Separator } from "@/components/ui/separator";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { 
+  Users, 
+  MessageSquare, 
+  Lock, 
+  AtSign, 
+  Clock, 
+  Activity,
+  Undo2,
+  Redo2,
+  Save,
+  AlignLeft,
+  Sparkles,
+  Trash2,
+  Settings2
+} from "lucide-react";
+import TriggerNode from "@/components/workflow/TriggerNode";
+import DataNode from "@/components/workflow/DataNode";
+import ConditionNode from "@/components/workflow/ConditionNode";
+import KnowledgeNode from "@/components/workflow/KnowledgeNode";
+import CollaborativeCursors from "@/components/workflow/CollaborativeCursors";
+import { toast } from "sonner";
 
 interface TeamMember {
   id: string;
@@ -34,7 +67,7 @@ const teamMembers: TeamMember[] = [
     avatar: "",
     color: "#3b82f6",
     status: "online",
-    currentNode: "node-3",
+    currentNode: "2",
   },
   {
     id: "2",
@@ -42,7 +75,7 @@ const teamMembers: TeamMember[] = [
     avatar: "",
     color: "#8b5cf6",
     status: "online",
-    currentNode: "node-5",
+    currentNode: "3",
   },
   {
     id: "3",
@@ -57,6 +90,102 @@ const teamMembers: TeamMember[] = [
     avatar: "",
     color: "#f59e0b",
     status: "offline",
+  },
+];
+
+const nodeTypes = {
+  trigger: TriggerNode,
+  data: DataNode,
+  condition: ConditionNode,
+  knowledge: KnowledgeNode,
+};
+
+const initialNodes: Node[] = [
+  {
+    id: '1',
+    type: 'trigger',
+    position: { x: 100, y: 100 },
+    data: { 
+      label: 'User Message',
+      description: 'Triggers when user sends a message',
+    },
+  },
+  {
+    id: '2',
+    type: 'knowledge',
+    position: { x: 400, y: 50 },
+    data: { 
+      label: 'Sentiment Analysis',
+      description: 'Analyze user sentiment',
+      editingUser: {
+        initials: 'SC',
+        color: '#3b82f6'
+      }
+    },
+  },
+  {
+    id: '3',
+    type: 'condition',
+    position: { x: 400, y: 200 },
+    data: { 
+      label: 'Check Intent',
+      description: 'Route based on user intent',
+      editingUser: {
+        initials: 'MJ',
+        color: '#8b5cf6'
+      }
+    },
+  },
+  {
+    id: '4',
+    type: 'data',
+    position: { x: 700, y: 100 },
+    data: { 
+      label: 'Query Database',
+      description: 'Fetch relevant information',
+    },
+  },
+  {
+    id: '5',
+    type: 'knowledge',
+    position: { x: 700, y: 300 },
+    data: { 
+      label: 'Generate Response',
+      description: 'AI-powered response generation',
+    },
+  },
+];
+
+const initialEdges: Edge[] = [
+  { 
+    id: 'e1-2', 
+    source: '1', 
+    target: '2',
+    animated: true,
+    style: { stroke: '#3b82f6', strokeWidth: 2 }
+  },
+  { 
+    id: 'e1-3', 
+    source: '1', 
+    target: '3',
+    animated: true,
+    style: { stroke: '#8b5cf6', strokeWidth: 2 }
+  },
+  { 
+    id: 'e3-4', 
+    source: '3', 
+    target: '4',
+    sourceHandle: 'true',
+    animated: true,
+    style: { stroke: '#f97316', strokeWidth: 2 }
+  },
+  { 
+    id: 'e3-5', 
+    source: '3', 
+    target: '5',
+    sourceHandle: 'false',
+    animated: true,
+    style: { stroke: '#f97316', strokeWidth: 2 }
   },
 ];
 
@@ -80,19 +209,70 @@ const mockComments: Comment[] = [
 ];
 
 export default function CollaborativeEditing() {
+  const [nodes, setNodes, onNodesChange] = useNodesState(initialNodes);
+  const [edges, setEdges, onEdgesChange] = useEdgesState(initialEdges);
   const [comments, setComments] = useState<Comment[]>(mockComments);
   const [newComment, setNewComment] = useState("");
-  const [selectedNode, setSelectedNode] = useState<string | null>(null);
+  const [selectedNode, setSelectedNode] = useState<Node | null>(null);
+  const [cursors, setCursors] = useState([
+    { id: '1', name: 'Sarah Chen', color: '#3b82f6', x: 450, y: 120 },
+    { id: '2', name: 'Mike Johnson', color: '#8b5cf6', x: 450, y: 270 },
+  ]);
+  const reactFlowWrapper = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCursors(prev => prev.map(cursor => ({
+        ...cursor,
+        x: cursor.x + (Math.random() - 0.5) * 20,
+        y: cursor.y + (Math.random() - 0.5) * 20,
+      })));
+    }, 2000);
+    return () => clearInterval(interval);
+  }, []);
 
   const getStatusColor = (status: TeamMember["status"]) => {
     switch (status) {
       case "online":
-        return "bg-green-500 dark:bg-green-400";
+        return "bg-green-500";
       case "away":
-        return "bg-yellow-500 dark:bg-yellow-400";
+        return "bg-yellow-500";
       case "offline":
         return "bg-muted-foreground";
     }
+  };
+
+  const onConnect = useCallback(
+    (params: Connection | Edge) => {
+      const newEdge = {
+        ...params,
+        animated: true,
+        style: { stroke: '#a855f7', strokeWidth: 2 }
+      };
+      setEdges((eds) => addEdge(newEdge, eds));
+      toast.success('Nodes connected!');
+    },
+    [setEdges]
+  );
+
+  const onNodeClick = useCallback((_event: React.MouseEvent, node: Node) => {
+    setSelectedNode(node);
+  }, []);
+
+  const handleAutoLayout = () => {
+    toast.success('Auto-layout applied!');
+  };
+
+  const handleUndo = () => {
+    toast.info('Undo action');
+  };
+
+  const handleRedo = () => {
+    toast.info('Redo action');
+  };
+
+  const handleSave = () => {
+    toast.success('Workflow saved successfully!');
   };
 
   const addComment = () => {
@@ -103,12 +283,20 @@ export default function CollaborativeEditing() {
       author: teamMembers[0],
       content: newComment,
       timestamp: new Date(),
-      nodeId: selectedNode,
+      nodeId: selectedNode.id,
       mentions: [],
     };
 
     setComments([...comments, comment]);
     setNewComment("");
+    toast.success('Comment added!');
+  };
+
+  const handleDeleteNode = () => {
+    if (!selectedNode) return;
+    setNodes((nds) => nds.filter((n) => n.id !== selectedNode.id));
+    setSelectedNode(null);
+    toast.success('Node deleted!');
   };
 
   return (
@@ -172,13 +360,44 @@ export default function CollaborativeEditing() {
         </CardContent>
       </Card>
 
+      {/* Toolbar */}
+      <Card className="border-border bg-card shadow-sm">
+        <CardContent className="pt-6">
+          <div className="flex items-center justify-between">
+            <div className="flex gap-2">
+              <Button variant="outline" size="sm" onClick={handleUndo}>
+                <Undo2 className="w-4 h-4 mr-2" />
+                Undo
+              </Button>
+              <Button variant="outline" size="sm" onClick={handleRedo}>
+                <Redo2 className="w-4 h-4 mr-2" />
+                Redo
+              </Button>
+              <Separator orientation="vertical" className="h-8" />
+              <Button variant="outline" size="sm" onClick={handleAutoLayout}>
+                <AlignLeft className="w-4 h-4 mr-2" />
+                Auto Layout
+              </Button>
+              <Button variant="outline" size="sm" onClick={handleAutoLayout}>
+                <Sparkles className="w-4 h-4 mr-2" />
+                Align Nodes
+              </Button>
+            </div>
+            <Button size="sm" onClick={handleSave}>
+              <Save className="w-4 h-4 mr-2" />
+              Save Workflow
+            </Button>
+          </div>
+        </CardContent>
+      </Card>
+
       <div className="grid grid-cols-1 lg:grid-cols-4 gap-6">
         {/* Main Canvas */}
         <div className="lg:col-span-3">
           <Card className="border-border bg-card shadow-sm">
             <CardHeader className="border-b border-border">
               <CardTitle className="flex items-center justify-between text-foreground">
-                <span>Agent Workflow</span>
+                <span>Agent Workflow Canvas</span>
                 <div className="flex gap-2">
                   {teamMembers
                     .filter((m) => m.status === "online" && m.currentNode)
@@ -194,46 +413,101 @@ export default function CollaborativeEditing() {
                 </div>
               </CardTitle>
             </CardHeader>
-            <CardContent>
-              <div className="border border-border rounded-lg h-[600px] relative overflow-hidden bg-muted/20">
-                <AgentCanvas />
-                
-                {/* Live Cursors */}
-                {teamMembers
-                  .filter((m) => m.status === "online" && m.currentNode)
-                  .map((member) => (
-                    <div
-                      key={member.id}
-                      className="absolute pointer-events-none"
-                      style={{
-                        left: `${Math.random() * 80 + 10}%`,
-                        top: `${Math.random() * 80 + 10}%`,
-                      }}
-                    >
-                      <svg
-                        width="20"
-                        height="20"
-                        viewBox="0 0 20 20"
-                        fill={member.color}
-                        className="drop-shadow-lg"
-                      >
-                        <path d="M0 0 L0 16 L4 12 L6 18 L8 17 L6 11 L10 10 Z" />
-                      </svg>
-                      <Badge
-                        className="ml-2 text-xs"
-                        style={{ backgroundColor: member.color, color: "white" }}
-                      >
-                        {member.name}
-                      </Badge>
-                    </div>
-                  ))}
+            <CardContent className="p-0">
+              <div className="h-[700px] relative" ref={reactFlowWrapper}>
+                <ReactFlow
+                  nodes={nodes}
+                  edges={edges}
+                  onNodesChange={onNodesChange}
+                  onEdgesChange={onEdgesChange}
+                  onConnect={onConnect}
+                  onNodeClick={onNodeClick}
+                  nodeTypes={nodeTypes}
+                  fitView
+                  snapToGrid
+                  snapGrid={[15, 15]}
+                  defaultEdgeOptions={{
+                    type: 'smoothstep',
+                    animated: true,
+                  }}
+                  className="bg-muted/20"
+                >
+                  <Controls className="!bg-card !border-border" />
+                  <MiniMap 
+                    className="!bg-card !border-border"
+                    nodeColor={(node) => {
+                      switch (node.type) {
+                        case 'trigger': return '#eab308';
+                        case 'data': return '#3b82f6';
+                        case 'condition': return '#f97316';
+                        case 'knowledge': return '#a855f7';
+                        default: return '#6b7280';
+                      }
+                    }}
+                  />
+                  <Background variant={BackgroundVariant.Dots} gap={15} size={1} className="bg-muted/20" />
+                  <CollaborativeCursors cursors={cursors} />
+                </ReactFlow>
               </div>
             </CardContent>
           </Card>
         </div>
 
-        {/* Comments & Activity Panel */}
+        {/* Right Panel - Properties & Comments */}
         <div className="space-y-6">
+          <Card className="border-border bg-card shadow-sm">
+            <CardHeader className="border-b border-border">
+              <CardTitle className="text-base text-foreground">Properties Panel</CardTitle>
+            </CardHeader>
+            <CardContent className="pt-4">
+              {selectedNode ? (
+                <Tabs defaultValue="general">
+                  <TabsList className="grid w-full grid-cols-2">
+                    <TabsTrigger value="general">General</TabsTrigger>
+                    <TabsTrigger value="advanced">Advanced</TabsTrigger>
+                  </TabsList>
+                  <TabsContent value="general" className="space-y-4">
+                    <div>
+                      <label className="text-sm font-medium">Node Type</label>
+                      <p className="text-sm text-muted-foreground capitalize mt-1">{selectedNode.type}</p>
+                    </div>
+                    <div>
+                      <label className="text-sm font-medium">Label</label>
+                      <p className="text-sm text-muted-foreground mt-1">{selectedNode.data.label}</p>
+                    </div>
+                    <div>
+                      <label className="text-sm font-medium">Description</label>
+                      <p className="text-sm text-muted-foreground mt-1">{selectedNode.data.description}</p>
+                    </div>
+                    <Button variant="destructive" size="sm" className="w-full" onClick={handleDeleteNode}>
+                      <Trash2 className="w-4 h-4 mr-2" />
+                      Delete Node
+                    </Button>
+                  </TabsContent>
+                  <TabsContent value="advanced" className="space-y-4">
+                    <div>
+                      <label className="text-sm font-medium">Node ID</label>
+                      <p className="text-sm text-muted-foreground mt-1 font-mono">{selectedNode.id}</p>
+                    </div>
+                    <div>
+                      <label className="text-sm font-medium">Position</label>
+                      <p className="text-sm text-muted-foreground mt-1">
+                        X: {Math.round(selectedNode.position.x)}, Y: {Math.round(selectedNode.position.y)}
+                      </p>
+                    </div>
+                    <Button variant="outline" size="sm" className="w-full">
+                      <Settings2 className="w-4 h-4 mr-2" />
+                      Advanced Settings
+                    </Button>
+                  </TabsContent>
+                </Tabs>
+              ) : (
+                <div className="text-center py-8 text-muted-foreground text-sm">
+                  Select a node to view properties
+                </div>
+              )}
+            </CardContent>
+          </Card>
           {/* Active Team Members */}
           <Card className="border-border bg-card shadow-sm">
             <CardHeader className="border-b border-border">
