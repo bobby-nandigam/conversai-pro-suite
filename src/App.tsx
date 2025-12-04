@@ -32,6 +32,7 @@ import TemporalDebugger from "./pages/TemporalDebugger";
 import SelfHealing from "./pages/SelfHealing";
 import MultimodalInterface from "./pages/MultimodalInterface";
 import AgentMonitoring from "./pages/AgentMonitoring";
+import AgentBuilderStudio from "./pages/AgentBuilderStudio";
 
 const queryClient = new QueryClient();
 
@@ -49,7 +50,9 @@ const App = () => (
                 <DashboardHeader />
                 <main className="flex-1">
                   <Routes>
-                    <Route path="/" element={<Dashboard />} />
+                    <Route path="/" element={<AgentBuilderStudio />} />
+                    <Route path="/builder" element={<AgentBuilderStudio />} />
+                    <Route path="/dashboard" element={<Dashboard />} />
                     <Route path="/agents" element={<BotManagement />} />
                     <Route path="/bots" element={<BotManagement />} />
                     <Route path="/bots/builder" element={<BotBuilder />} />

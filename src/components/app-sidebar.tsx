@@ -1,4 +1,3 @@
-import { useState } from "react"
 import { 
   Bot, 
   BarChart3, 
@@ -8,7 +7,6 @@ import {
   BookOpen,
   Zap,
   Shield,
-  Home,
   Brain,
   Phone,
   TestTube,
@@ -20,7 +18,9 @@ import {
   Clock,
   HeartPulse,
   Mic,
-  Activity
+  Activity,
+  LayoutDashboard,
+  Layers
 } from "lucide-react"
 import { NavLink, useLocation } from "react-router-dom"
 import {
@@ -32,15 +32,14 @@ import {
   SidebarMenu,
   SidebarMenuButton,
   SidebarMenuItem,
-  SidebarTrigger,
   useSidebar,
 } from "@/components/ui/sidebar"
 import { cn } from "@/lib/utils"
 
 const mainItems = [
-  { title: "Dashboard", url: "/", icon: Home },
-  { title: "Agent Management", url: "/agents", icon: Bot },
-  { title: "Analytics", url: "/analytics", icon: BarChart3 },
+  { title: "Agent Builder", url: "/", icon: Layers, highlight: true },
+  { title: "My Agents", url: "/agents", icon: Bot },
+  { title: "Dashboard", url: "/dashboard", icon: LayoutDashboard },
   { title: "Conversations", url: "/conversations", icon: MessageSquare },
   { title: "Knowledge Base", url: "/knowledge", icon: BookOpen },
 ]
@@ -58,6 +57,7 @@ const advancedItems = [
 
 const toolsItems = [
   { title: "Integrations", url: "/integrations", icon: Zap },
+  { title: "Analytics", url: "/analytics", icon: BarChart3 },
   { title: "Team Management", url: "/team", icon: Users },
   { title: "Testing Suite", url: "/testing", icon: TestTube },
   { title: "Voice Interface", url: "/voice", icon: Phone },
